@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>수학 튜터 AI</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>AI 수학 튜터</h1>
+  <form id="chat-form">
+    <textarea id="prompt" placeholder="질문을 입력하세요"
+              rows="4" cols="50"></textarea>
+    <br>
+    <button type="submit">보내기</button>
+  </form>
+  <div id="response"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $('#chat-form').on('submit', function(e) {
+      e.preventDefault();
+      var prompt = $('#prompt').val();
+      $('#response').text('로딩 중...');
+      $.post('/ask', {prompt: prompt}, function(data) {
+        $('#response').text(data.response);
+      });
+    });
+  </script>
+</body>
+</html>
